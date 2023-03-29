@@ -14,7 +14,7 @@ typedef struct pilha{
 void criar_pilha(pilha ** p);
 int pilha_vazia(pilha** p,int flag);
 void push_pilha(pilha ** p,float dado);
-void pop_pilha(pilha ** p);
+float pop_pilha(pilha ** p);
 void mostra_topo(pilha ** p);
 void tam_pilha(pilha ** p);
 
@@ -32,9 +32,11 @@ int main(){
         push_pilha(&p,vec_test[i]);
     }
 
+    //float dado = pop_pilha(&p); // testando funçao pop da pilha para retonar topo da fila
+
     tam_pilha(&p); /// funçao pra mostrar tam da lita
 
-
+    float dado;
     for(int i = 0;i<5;i++){ // desempilhar e mostar pilha
         mostra_topo(&p);
         pop_pilha(&p);
@@ -42,8 +44,7 @@ int main(){
   // caso tentar mostrar pilha vazia
     tam_pilha(&p);
     mostra_topo(&p);
-
-
+    printf("dwdwdwdwdwd%.2f",dado);
 }
 void criar_pilha(pilha ** p){
     (*p) = (pilha *) malloc(sizeof(pilha));
@@ -77,7 +78,7 @@ void push_pilha(pilha ** p,float dado){
     }
     (*p)->tam++; 
 }
-void pop_pilha(pilha ** p){
+float pop_pilha(pilha ** p){
     if (pilha_vazia(p,1))
     { 
        exit(1);
@@ -85,8 +86,10 @@ void pop_pilha(pilha ** p){
     no * pilha_aux;
     pilha_aux = (*p)->primeiro;
     (*p)->primeiro = pilha_aux->prox;
+    float dado = pilha_aux->dado;
     free(pilha_aux);
     (*p)->tam--;
+    return dado;
 
 }
 void mostra_topo(pilha ** p){
