@@ -110,7 +110,7 @@ void inseri_intervalor(int num,ListaEncadeada * list,int inter){
     if(inter == 0){
         inseri_ini(num,list);
     }
-    else if ( inter>0)
+    else if ( inter==list->tamanho)
     {
         inseri_fim(num,list);
     }
