@@ -19,28 +19,22 @@ void criar_no(int num,No ** no);
 void inseri_fim(int num,ListaEncadeada * list);
 void criarListaEncadeada(ListaEncadeada **lista);
 void inseri_ini(int num,ListaEncadeada * list);
-void inseri_intervalor(int num,ListaEncadeada * list,int inter); // (insere o numero no intervalo) zero sera posiçao valida nessa funçao o ultimo elemenmto sera tamanho -1
-void remover_intervalor(ListaEncadeada * list,int inter); // (remove o numero no intervalo)  zero sera posiçao valida nessa funçao o ultimo elemenmto sera tamanho -1
+void inseri_intervalor(int num,ListaEncadeada * list,int inter); // zero sera posiçao valida nessa funçao o ultimo elemenmto sera tamanho -1
+void remover_intervalor(ListaEncadeada * list,int inter); // zero sera posiçao valida nessa funçao o ultimo elemenmto sera tamanho -1
 
 int main()
 {
     ListaEncadeada *l1;
     criarListaEncadeada(&l1);
-    inseri_ini(130,l1);
-    inseri_ini(110,l1);
-    inseri_fim(3,l1);
-    inseri_fim(2,l1);
-    inseri_intervalor(1430,l1,2);
-    inseri_intervalor(42,l1,5);
-    inseri_intervalor(42,l1,6);
-    inseri_intervalor(42,l1,7);
-    remover_intervalor(l1,4);
+    inseri_intervalor(1430,l1,0);
+    inseri_intervalor(1450,l1,1);
+    inseri_intervalor(145,l1,2);
+    inseri_intervalor(231,l1,3);
+    remover_intervalor(l1,3);
+    remover_intervalor(l1,0);
+    remover_intervalor(l1,1);
     imprimirLista(l1);
-    remover_intervalor(l1,4);
-    inseri_ini(21,l1);
-    inseri_fim(2,l1);
-    printf("\n\n%d\n",l1->tamanho);
-    imprimirLista(l1);
+    printf("\ntamanho da lista : %d",l1->tamanho);
 }
 
 void criarListaEncadeada(ListaEncadeada **lista) {
@@ -137,7 +131,8 @@ void remover_intervalor(ListaEncadeada * list,int inter){
     if(inter == 0){
         No * aux = list->inicio;
         list->inicio=list->inicio->proximo;
-        if(list->tamanho = 1){
+        list->inicio->ant = aux->ant;
+        if(list->tamanho == 1){
             list->fim = list->inicio;
         }
         free(aux);
@@ -145,7 +140,8 @@ void remover_intervalor(ListaEncadeada * list,int inter){
     else if(inter == list->tamanho-1){
         No * aux = list->fim;
         list->fim=list->fim->ant;
-          if(list->tamanho = 1){
+        list->fim->proximo = aux->proximo;
+        if(list->tamanho == 1){
             list->inicio = list->fim;
         }
         free(aux);
@@ -161,5 +157,5 @@ void remover_intervalor(ListaEncadeada * list,int inter){
         aux2->ant = aux3;
         free(aux);
     }
-    list->tamanho=list->tamanho-1;
+    list->tamanho--;
 }
